@@ -52,3 +52,5 @@ n2 = int("1240905467219837578349182398365"
 n = magic2(magic1(n1, n2), 1337)
 print n
 print hex(n)[2:-1].decode("hex").splitlines()[0]
+
+# and the password is..... Haslo: "WolneOprogramowanie!"
