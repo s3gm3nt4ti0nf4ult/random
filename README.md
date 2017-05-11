@@ -30,7 +30,7 @@ My solution (python):
 
 And these words are:
 
-!!!SPOILER ALERT SPOILER ALERT SPOILER ALERT!!!
+
 [click](gyn/challenge/pl/001/solution)
 
 
@@ -48,8 +48,6 @@ My solution:
 3. Run your program and.... BINGO!
 
 The password is:
-
-!!!SPOILER ALERT SPOILER ALERT SPOILER ALERT!!!
 
 
 [click](gyn/challenge/pl/003/solution)
