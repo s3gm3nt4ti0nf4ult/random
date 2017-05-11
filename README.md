@@ -2,8 +2,7 @@
 
 Random stuff, short scripts, ctf snippets.
 
-***
-***
+---
 
 
 ## Gyn
@@ -12,7 +11,7 @@ This directory contains solutions of GynvaelColdwind's missions from his streams
 
 For tasks in polish I will make some comments.
 
-
+***
 ###### PL: Mission 001
 
 Task was simple, you've been given target hash:
@@ -57,10 +56,10 @@ My solution:
 
 The password is:
 
-[click](gyn/challange/pl/002/solution)
+[click](gyn/challenge/pl/002/solution)
 
 
-
+***
 ###### PL: Mission 003
 
 Link to task:
