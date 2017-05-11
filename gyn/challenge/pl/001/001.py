@@ -1,27 +1,30 @@
 # note that this solution is not so efficient - it's better to calculate hash once. Will be fixed.
 import hashlib
 import itertools
-
+import time
 target = '76fb930fd0dbc6cba6cf5bd85005a92a'
 
 
 
 def main():
-    wo = open('path\to\wordlist', 'r').readlines()
-    words = []
+    wo = open('dict.txt', 'r').readlines()
+    words = {}
+    t = time.time()
     for w in wo:
         if len(w.strip()) == 8:
-            words.append(w.strip())
-    wo = []
-    iterable = iter(itertools.product(words,words))
+            #words.append(w.strip())
+            words[hashlib.md5(w.strip().encode('utf-8')).hexdigest()] = w.strip()
+
+
+    iterable = iter(itertools.product(words.keys(),words.keys()))
     for i in iterable:
-        a, b = i[0].strip(), i[1].strip()
-        hash1, hash2 = hashlib.md5(a.encode('utf-8')).hexdigest(), hashlib.md5(b.encode('utf-8')).hexdigest()
-        main_hash = '{:x}'.format(int(hash1,16)^int(hash2,16))#"".join(chr(int(x,16) ^ int(y,16)) for x,y in zip(hash1,hash2))
-        #print("{}:{}:{}".format(a,b,main_hash)) 
+        main_hash = '{:x}'.format(int(i[0],16)^int(i[1],16))#"".join(chr(int(x,16) ^ int(y,16)) for x,y in zip(hash1,hash2))
+        #print("{}:{}:{}".format(i[0][0],i[1][0],main_hash))
         if main_hash == target:
-            print("w1:{}, w2={}".format(a,b))
+            print("Keys FOUND!!! w1:{}, w2={}".format(words[i[0]], words[i[1]]))
             break
+
+    print('Done in {}'.format(time.time()-t))
 
 
 
