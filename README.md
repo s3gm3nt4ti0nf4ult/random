@@ -11,6 +11,7 @@ Table of Contents:
                   * [PL: Mission 003](#pl-mission-003)
          * [EN](#en)
                   * [EN: Mission 001](#en-mission-001)
+                  * [EN: Mission 002](#en-mission-002)
 
 ___
 ## Gyn
@@ -126,7 +127,34 @@ My solution (python):
 And these words are:
 
 
-[click](gyn/challenge/en/003/solution)
+[click](gyn/challenge/en/001/solution)
 
+
+***
+###### EN: Mission 002
+
+Link to task:
+
+
+[click](goo.gl/iPQE89)
+
+
+We have to decode message using Huffman's algorithm using given tree. The main difficulty in this task it is to present given tree in some data structure. There is a lot o ways doing it, I've decided to make dictionary. It's simple and fast. 
+
+My solution:
+
+1. Create dictionary based on tree given
+2. Substitute all xs and ys with 1 and 0 or 0 and 1 (we don't know if 1 means go right or go left)
+3. Go char by char and search for fitting pattern. 
+4. Decode hex string to ascii string.
+
+
+Works on python3
+
+
+The solution is:
+
+
+[click](gyn/challenge/en/002/solution)
 
 ***
