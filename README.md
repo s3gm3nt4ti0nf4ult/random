@@ -11,7 +11,6 @@ For tasks in polish I will make some comments.
 
 
 Table of Contents:
-   * [Random stuff repo.](#random-stuff-repo)
       * [Gyn](#gyn)
          * [PL](#pl)
                   * [PL: Mission 001](#pl-mission-001)
