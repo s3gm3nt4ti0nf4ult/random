@@ -9,7 +9,18 @@ This directory contains solutions of GynvaelColdwind's missions from his streams
 
 For tasks in polish I will make some comments.
 
+
+Table of Contents:
+* [PL] (#PL) 
+ * [Mission 001 PL](#PL: Mission 001)
+ * [Mission 002 PL](#PL: Mission 002)
+ * [Mission 003 PL](#PL: Mission 003)
+* [EN]
+ * [Mission 001 EN](#EN: Mission 001)
+
+
 ***
+### PL
 ###### PL: Mission 001
 
 Link to task:
@@ -92,6 +103,8 @@ The password is:
 
 
 ***
+***
+### EN
 ###### EN: Mission 001
 
 Task was simple, you've been given target hash:
@@ -107,7 +120,6 @@ My solution (python):
 3. Make cartesian product of keys of dict
 4. xor each pair of hashes 
 5. Compare it with original hash, if it matches... BINGO! 
-
 
 
 

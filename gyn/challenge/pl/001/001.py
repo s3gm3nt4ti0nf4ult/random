@@ -26,6 +26,8 @@ def xor(a,b):
 
 
 def cracker():
+    
+    ll = xor('h', ciphertext[6][6]).encode('hex')
     words = open('words.txt', 'r').read().lower().splitlines()
     words6 = [ w for w in words if len(w) == 6]
 
@@ -35,10 +37,10 @@ def cracker():
         #print(xor(w[0], w[1]), midd_xor)
         if xor(w[0], w[1]) == midd_xor:
             print('Colision found, these words are: w1:{} w2:{}'.format( w[0], w[1]))
-            keys = list(set([xor(w[0], ciphertext[2]).encode('hex'),
-                    xor(w[0], ciphertext[3]).encode('hex'),
-                    xor(w[1], ciphertext[2]).encode('hex'),
-                    xor(w[1], ciphertext[3]).encode('hex')])
+            keys = list(set([xor(w[0], ciphertext[2]).encode('hex')+ll,
+                    xor(w[0], ciphertext[3]).encode('hex')+ll,
+                    xor(w[1], ciphertext[2]).encode('hex')+ll,
+                    xor(w[1], ciphertext[3]).encode('hex')+ll])
                     )
                     
             
