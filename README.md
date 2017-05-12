@@ -6,15 +6,10 @@ Table of Contents:
    * [Random stuff repo.](#random-stuff-repo)
       * [Gyn](#gyn)
          * [PL](#pl)
-         
                   * [PL: Mission 001](#pl-mission-001)
-                  
                   * [PL: Mission 002](#pl-mission-002)
-                  
                   * [PL: Mission 003](#pl-mission-003)
-                  
          * [EN](#en)
-         
                   * [EN: Mission 001](#en-mission-001)
 
 ___
