@@ -11,14 +11,14 @@ For tasks in polish I will make some comments.
 
 
 Table of Contents:
-* [PL] (#PL) 
- * [Mission 001 PL](#PL: Mission 001)
- * [Mission 002 PL](#PL: Mission 002)
- * [Mission 003 PL](#PL: Mission 003)
-* [EN]
- * [Mission 001 EN](#EN: Mission 001)
-
-
+   * [Random stuff repo.](#random-stuff-repo)
+      * [Gyn](#gyn)
+         * [PL](#pl)
+                  * [PL: Mission 001](#pl-mission-001)
+                  * [PL: Mission 002](#pl-mission-002)
+                  * [PL: Mission 003](#pl-mission-003)
+         * [EN](#en)
+                  * [EN: Mission 001](#en-mission-001)
 ***
 ### PL
 ###### PL: Mission 001
