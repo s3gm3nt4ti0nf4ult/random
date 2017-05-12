@@ -1,5 +1,5 @@
 
-key: 7eff753554bda9
+key: 7eff753554bd(a9)
 
 Text:
 and
@@ -8,8 +8,10 @@ you're
 taking
 a
 walk
-throug
+throug(h)
 the
 garden
 of
 life
+
+// as we see, there is missed char in through. So the next letter in key, must give 'h' while xored with the longest word in ciphertext. 
