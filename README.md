@@ -136,7 +136,7 @@ And these words are:
 Link to task:
 
 
-[click](goo.gl/iPQE89)
+[click](http://goo.gl/iPQE89)
 
 
 We have to decode message using Huffman's algorithm using given tree. The main difficulty in this task it is to present given tree in some data structure. There is a lot o ways doing it, I've decided to make dictionary. It's simple and fast. 
