@@ -1,33 +1,57 @@
-# note that this solution is not so efficient - it's better to calculate hash once. Will be fixed.
-import hashlib
-import itertools
-import time
-target = '76fb930fd0dbc6cba6cf5bd85005a92a'
+#!/usr/bin/python
+
+from itertools import product
+import sys
+# assume a <- word b <- word k <- key
+# for the fact we know that: a^k^b^k = (a^b)^(k^k) = (a^b)
+
+ciphertext = [
+    "1f9111".decode("hex"),
+    "1799".decode("hex"),
+    "0790001226d8".decode("hex"),
+    "0a9e1e5c3ada".decode("hex"),
+    "1f".decode("hex"),
+    "099e195e".decode("hex"),
+    "0a97075a21dac1".decode("hex"),
+    "0a9710".decode("hex"),
+    "199e075131d3".decode("hex"),
+    "1199".decode("hex"),
+    "12961350".decode("hex"),
+]
 
 
 
-def main():
-    wo = open('dict.txt', 'r').readlines()
-    words = {}
-    t = time.time()
-    for w in wo:
-        if len(w.strip()) == 8:
-            #words.append(w.strip())
-            words[hashlib.md5(w.strip().encode('utf-8')).hexdigest()] = w.strip()
+def xor(a,b):
+    return ''.join([chr(ord(c1) ^ ord(c2)) for c1,c2 in zip(a, b[:len(a)])])
 
 
-    iterable = iter(itertools.product(words.keys(),words.keys()))
-    for i in iterable:
-        main_hash = '{:x}'.format(int(i[0],16)^int(i[1],16))#"".join(chr(int(x,16) ^ int(y,16)) for x,y in zip(hash1,hash2))
-        #print("{}:{}:{}".format(i[0][0],i[1][0],main_hash))
-        if main_hash == target:
-            print("Keys FOUND!!! w1:{}, w2={}".format(words[i[0]], words[i[1]]))
-            break
+def cracker():
+    words = open('words.txt', 'r').read().lower().splitlines()
+    words6 = [ w for w in words if len(w) == 6]
 
-    print('Done in {}'.format(time.time()-t))
+    midd_xor = xor(ciphertext[2], ciphertext[3])
 
+    for w in product(words6, words6):
+        #print(xor(w[0], w[1]), midd_xor)
+        if xor(w[0], w[1]) == midd_xor:
+            print('Colision found, these words are: w1:{} w2:{}'.format( w[0], w[1]))
+            keys = list(set([xor(w[0], ciphertext[2]).encode('hex'),
+                    xor(w[0], ciphertext[3]).encode('hex'),
+                    xor(w[1], ciphertext[2]).encode('hex'),
+                    xor(w[1], ciphertext[3]).encode('hex')])
+                    )
+                    
+            
+            for k in keys:
+                print('key: {}'.format(k))
+                for c in ciphertext:
+                    print(xor(k.decode('hex'), c))
+
+            sys.exit(100)
+
+    print('Exhousted')
 
 
 
 if __name__ == '__main__':
-    main()
+    cracker()
