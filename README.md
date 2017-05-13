@@ -54,6 +54,10 @@ My solution:
 7. After finding 'collision', a pair of words described in `2.`, we've got pretty much all. Only one char is missing, but we can guess it from  the context. Well done!
 
 
+
+[solver](gyn/challenge/pl/001/001.py)
+
+
 And the soultion is:
 
 
@@ -77,6 +81,9 @@ My solution:
 2. Values in range (0,63) can be presented by 6 bits. 
 3. Every 'string' in that matrix starts with 'Q', I retrive 4 LB from every other letter after Q, put them in one byte and then convert it right back to the ASCII.
 
+
+
+[solver](gyn/challenge/pl/002/002.py)
 The password is:
 
 [click](gyn/challenge/pl/002/solution)
@@ -96,6 +103,11 @@ My solution:
 1. Change magic1 function to return just a + b (in the code I've made some comments if it's not clear for you so far) - nah, not so magic...
 2. Change magic2 function to return just a x b - again no magic here.
 3. Run your program and.... BINGO!
+
+
+
+[solver](gyn/challenge/pl/003/003.py)
+
 
 The password is:
 
@@ -124,6 +136,9 @@ My solution (python):
 
 
 
+[solver](gyn/challenge/en/001/001.py)
+
+
 And these words are:
 
 
@@ -150,6 +165,10 @@ My solution:
 
 
 Works on python3
+
+
+[solver](gyn/challenge/en/002/002.py)
+
 
 
 The solution is:
