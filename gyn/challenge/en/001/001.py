@@ -1,4 +1,4 @@
-# note that this solution is not so efficient - it's better to calculate hash once. Will be fixed.
+#!/usr/bin/env python
 import hashlib
 import itertools
 import time

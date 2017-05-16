@@ -12,13 +12,13 @@ Table of Contents:
          * [EN](#en)
                   * [EN: Mission 001](#en-mission-001)
                   * [EN: Mission 002](#en-mission-002)
-
+                  * [EN: Mission 003](#en-mission-003)
 ___
 ## Gyn
 
 This directory contains solutions of GynvaelColdwind's missions from his streams in both english and polish language.
 
-For tasks in polish I will make some comments.
+For tasks in polish I will make some comments. `<SPOILER_ALERT>` Solutions are hidden under links`</SPOILER_ALERT>`, so there will be no more spoiler alerts! You enter "solution" link at your own risk!
 
 ***
 ### PL
@@ -61,7 +61,7 @@ My solution:
 And the soultion is:
 
 
-[click](gyn/challenge/pl/001/solution)
+[solution](gyn/challenge/pl/001/solution)
 
 
 ***
@@ -84,9 +84,10 @@ My solution:
 
 
 [solver](gyn/challenge/pl/002/002.py)
+
 The password is:
 
-[click](gyn/challenge/pl/002/solution)
+[solution](gyn/challenge/pl/002/solution)
 
 
 ***
@@ -112,7 +113,7 @@ My solution:
 The password is:
 
 
-[click](gyn/challenge/pl/003/solution)
+[solution](gyn/challenge/pl/003/solution)
 
 
 ***
@@ -142,7 +143,7 @@ My solution (python):
 And these words are:
 
 
-[click](gyn/challenge/en/001/solution)
+[solution](gyn/challenge/en/001/solution)
 
 
 ***
@@ -174,6 +175,30 @@ Works on python3
 The solution is:
 
 
-[click](gyn/challenge/en/002/solution)
+[solution](gyn/challenge/en/002/solution)
 
 ***
+###### EN: Mission 003
+
+Link to task:
+
+
+[click](http://gynvael.vexillium.org/ext/a4ff898c9e5109d832421f795d2b9d9898a04d16.txt)
+
+
+I love that formatting! Anyway, let's focus on our job. 
+
+
+The task is to decode given data encoded with Huffman's algorithm. Same as mission 002. But this time, somebody forgot decoding tree!!! Honestly, this task took me more than previous one, but had a lot of fun cracking it!
+
+
+data = 
+`10101011101000110100011101111111011111110111010010110010011100101111001011001001
+10111001101000111011111110100101111010011101111011001011001001110101011110110011
+11101011111011110111101111011101111111001011001001011001001110110011100101100100
+11010001110110011110110100101100100110111001110010111
+`
+
+My solution:
+
+
