@@ -201,4 +201,21 @@ data =
 
 My solution:
 
+1. The most important part of task content is: 'He said that he took the plaintext message, interpreted the bytes that
+made the message as a large little-endian encoded number, then encoded that as
+a quaternary number (i.e. number in the base/radix 4 system), and then compressed
+it with Huffman encoding.'
+2. So if he encoded it as quaternary number there are only four characters used to encode whole message {0,1,2,3}. That makes our task of bruteforcing Huffman's tree so much faster...
+3. Then we have change this great quaternary number to ASCII and read it from MSB. That's it! 
 
+
+My solver looks like:
+
+
+[solver](gyn/challenge/en/003/003.py)
+
+
+The solution is:
+
+
+[solution](gyn/challenge/en/003/solution)
