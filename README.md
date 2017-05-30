@@ -1,5 +1,6 @@
 # Random stuff repo.
 
+Note! some things might be missing or not so complete, I will fix it ASAP.
 Random stuff, short scripts, ctf snippets.
 
 Table of Contents:
@@ -9,10 +10,12 @@ Table of Contents:
                   * [PL: Mission 001](#pl-mission-001)
                   * [PL: Mission 002](#pl-mission-002)
                   * [PL: Mission 003](#pl-mission-003)
+                  * [PL: Mission 004](#pl-mission-004)
          * [EN](#en)
                   * [EN: Mission 001](#en-mission-001)
                   * [EN: Mission 002](#en-mission-002)
                   * [EN: Mission 003](#en-mission-003)
+                  * [EN: Mission 004](#en-mission-004)
 ___
 ## Gyn
 
@@ -114,6 +117,65 @@ The password is:
 
 
 [solution](gyn/challenge/pl/003/solution)
+
+
+###### PL: Mission 004
+
+Linkt to task:
+
+[click](http://gynvael.vexillium.org/ext/501ec65ba47c1ffe6ab6fd3f3b150c91bf15c37f.txt)
+
+
+Comment: Covert ops agent, has a serious problem with code lock. He managed to use some JTAG or another UARTs to dump firmware. Now we have to deobfuscate it and crack it! 
+
+'''cpp
+
+      #include <stdio.h>
+      int check(char*b){char*p;for(p=b;*p;p++);if(((p-b)^42)!=47)return(
+      ~0xffffffff);unsigned long long ch=0x1451723121264133ULL;for(p=b;*
+      p;p++)ch=((ch<<9)|(ch>>55))^*p;return!!(14422328074577807877ULL==
+      ch);}int main(void){char buf[1234];scanf("%1233s",buf);puts("nope"
+      "\0good"+check(buf)*(6-1));return 0;}
+'''
+
+Well that's the hell of the job to do! We better do it now!
+
+Such snippet is not readable at all. I've decided to "deobfuscate" it using @KrzaQ's formatter available here: [formatter](http://format.krzaq.cc/)
+
+Resoult of this operation:
+'''cpp
+#include <stdio.h>
+int check(char* b)
+{
+    char* p;
+    for (p = b; *p; p++)
+        ;
+    if (((p - b) ^ 42) != 47)
+        return (
+            ~0xffffffff);
+    unsigned long long ch = 0x1451723121264133ULL;
+    for (p = b; *p; p++)
+        ch = ((ch << 9) | (ch >> 55)) ^ *p;
+    return !!(14422328074577807877ULL == ch);
+}
+int main(void)
+{
+    char buf[1234];
+    scanf("%1233s", buf);
+    puts("nope"
+         "\0good"
+        + check(buf) * (6 - 1));
+    return 0;
+}
+'''
+
+Whoah! That looks nice! 
+
+Let's analyze the code.
+
+My solution:
+
+1. 
 
 
 ***
@@ -219,3 +281,35 @@ The solution is:
 
 
 [solution](gyn/challenge/en/003/solution)
+
+
+###### EN: Mission 004
+
+Link to task:
+
+
+[click](http://gynvael.vexillium.org/ext/19e9b863bbab65e7178a1113a25d59f479ce5939.txt)
+
+
+My solution:
+
+1. Definitely something was hacked up. Given data cannot be converted to chars from HEX values. Python decode rises exception:
+`UnicodeDecodeError: 'utf8' codec can't decode bytes in position 0-1: invalid continuation byte`. Good job agent! Now you're talking to yourself only... 
+2. My first idea, before reading anything was to find some decent UTF-8 decoder, this site seems to be useful:
+[click](https://software.hixie.ch/utilities/cgi/unicode-decoder/utf8-decoder), if you paste our text and select input type "hexadecimal", you will be home. But I won't be myself without trying own implementation. So lets assume, we have to "crack it"!
+3. 
+
+
+
+My solver:
+
+
+[solver](gyn/challenge/en/004/004.py)
+
+
+And the password is:
+
+
+[solution](gyn/challenge/en/004/solution)
+
+
