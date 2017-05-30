@@ -128,7 +128,7 @@ Linkt to task:
 
 Comment: Covert ops agent, has a serious problem with code lock. He managed to use some JTAG or another UARTs to dump firmware. Now we have to deobfuscate it and crack it! 
 
-'''cpp
+'''
       #include <stdio.h>
       int check(char*b){char*p;for(p=b;*p;p++);if(((p-b)^42)!=47)return(
       ~0xffffffff);unsigned long long ch=0x1451723121264133ULL;for(p=b;*
@@ -144,7 +144,7 @@ Such snippet is not readable at all. I've decided to "deobfuscate" it using @Krz
 Resoult of this operation:
 
 
-'''cpp
+'''
 #include <stdio.h>
 int check(char* b)
 {
