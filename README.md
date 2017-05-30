@@ -143,6 +143,8 @@ Well that's the hell of the job to do! We better do it now!
 Such snippet is not readable at all. I've decided to "deobfuscate" it using @KrzaQ's formatter available here: [formatter](http://format.krzaq.cc/)
 
 Resoult of this operation:
+
+
 '''cpp
 #include <stdio.h>
 int check(char* b)
