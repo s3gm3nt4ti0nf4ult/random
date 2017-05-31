@@ -9,9 +9,23 @@ msg = ''' E0 81 8F 76 65 72 C1 AC E0 81 AF E0 81 AE C1 A7
          
          
 def main():
-  enc = [bin(int(n, 16))[2:] for n in msg]
-  print([len(l) for l in enc])
-  
-  
+    enc = [bin(int(n, 16))[2:].zfill(8) for n in msg]
+    i = 0
+    while i != len(enc):
+        if enc[i].startswith('0'):
+            print(chr(int(enc[i],2)), end='')
+            i+=1
+        elif enc[i].startswith('110'):
+            print(chr(int(enc[i][3:]+enc[i+1][2:],2)), end='')
+            i+=2
+        elif enc[i].startswith('1110'):
+            print(chr(int(enc[i][4:]+enc[i+1][2:]+enc[i+2][2:],2)), end='')
+            i+=3
+        elif enc[i].startswith('11110'):
+            print(chr(int(enc[i][5:]+enc[i+1][2:]+enc[i+2][2:]+enc[i+3][:2],2)), end='')
+            i+=4
+
+
+
 if __name__ == '__main__':
   main()
