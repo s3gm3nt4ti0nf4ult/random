@@ -1,6 +1,7 @@
 # Random stuff repo.
 
 Note! some things might be missing or not so complete, I will fix it ASAP.
+
 Random stuff, short scripts, ctf snippets.
 
 Table of Contents:
@@ -128,14 +129,14 @@ Linkt to task:
 
 Comment: Covert ops agent, has a serious problem with code lock. He managed to use some JTAG or another UARTs to dump firmware. Now we have to deobfuscate it and crack it! 
 
-'''
+```cpp
       #include <stdio.h>
       int check(char*b){char*p;for(p=b;*p;p++);if(((p-b)^42)!=47)return(
       ~0xffffffff);unsigned long long ch=0x1451723121264133ULL;for(p=b;*
       p;p++)ch=((ch<<9)|(ch>>55))^*p;return!!(14422328074577807877ULL==
       ch);}int main(void){char buf[1234];scanf("%1233s",buf);puts("nope"
       "\0good"+check(buf)*(6-1));return 0;}
-'''
+```
 
 Well that's the hell of the job to do! We better do it now!
 
@@ -144,7 +145,7 @@ Such snippet is not readable at all. I've decided to "deobfuscate" it using @Krz
 Resoult of this operation:
 
 
-'''
+```cpp
 #include <stdio.h>
 int check(char* b)
 {
@@ -168,7 +169,7 @@ int main(void)
         + check(buf) * (6 - 1));
     return 0;
 }
-'''
+```
 
 Whoah! That looks nice! 
 
