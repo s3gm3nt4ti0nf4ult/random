@@ -171,13 +171,24 @@ int main(void)
 }
 ```
 
-Whoah! That looks nice! 
+Whoah, awsome! That looks nice! 
 
 Let's analyze the code.
 
 My solution:
 
-1. 
+1. In main function, that accepts no argv arguments, program alocates chars' buffer: `char buff[1234];`
+2. Then it waits for input, reading max 1233 chars + `\0` which is C style string terminator.
+3. Later main function calls puts, printing one of two declarated strings "good" and "nope". Output depends on check(buff)*(6-1), this expression depends on what check function returns. So now it's time to analyze the core of this lock's firmware.
+4. Function check accepts one pointer as an argument - it's pointer of char type, so it is the pointer to the `buff` buffer.
+5. Then there is strange for newbies (like me) expr. `for(p = b; *p; p++);` it's a for loop, that starts in the begining of the buff string and stops... when? At the end of the buffer. So expression p-b is another way of saying `length(buff)`. Well I will stick to my version, but it's good to see another ways to present length of the string in C/C++ :)
+6. Then we have if statement. `if(((p-b)^42)!=47)` If it's true our function returns ~0xffffffff number. We are familiar with `^` operator, it's used for xor operation. So if (p-b) xor 42 is not equal to 47. There is a very simple way, to "retrive" p-b, so the length of the string, value. I've used that in mission PL 001. (p-b) = 47 ^ 42. My python interpreter claims that:
+```
+>>> 42^47
+5
+```
+If that condition is not met, function returns this strange value. Negation of all F <16> values means just return 0; Then pointer in `puts` func in main() points to "nope". So my awsome deduction skills tell me that password must be 5 chars long. That is bruteforceable! (I love bruteforce, it's very convinient way, and usualy guarantees 100% correct solution. Sometimes it just matter of bilions of years...)
+7. 
 
 
 ***
