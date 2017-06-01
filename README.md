@@ -12,6 +12,7 @@ Table of Contents:
                   * [PL: Mission 002](#pl-mission-002)
                   * [PL: Mission 003](#pl-mission-003)
                   * [PL: Mission 004](#pl-mission-004)
+                  * [PL: Mission 005](#pl-mission-005)
          * [EN](#en)
                   * [EN: Mission 001](#en-mission-001)
                   * [EN: Mission 002](#en-mission-002)
@@ -194,9 +195,9 @@ If that condition is not met, function returns this strange value. Negation of a
     for (p = b; *p; p++)
         ch = ((ch << 9) | (ch >> 55)) ^ *p;
 ```
-What it does, for each char of password, it shifts current value of ch (bitwise) nine bits left, ORs it with current ch shifted 55 bits right and XORs it with current char. This is assigned to ch, so in next iteration we've got another value. 
+What it does, for each char of password, it shifts current value of ch (bitwise) nine bits left, ORs it with current ch shifted 55 bits right (its called bit roll) and XORs it with current char. This is assigned to ch, so in next iteration we've got another value. 
 Finally function `check` returns value of comparision of magic value and ch. So at the end our ch value must be equal `14422328074577807877ULL`, ULL stands for `unsigned long long` if someone is curious. 
-9. 
+9. So if it's bitwise roll, nothing is lost, so I can just roll back to the original value and xor it with the score, that gives us the original value of *p, so the value of particular char - letter of the password! HACK YEAH. 
 
 
 So finally, lets wrap it up and code:
@@ -204,7 +205,8 @@ Dumbest solution ever, but if you have enough time, go on, brute it!:
 
 [dummy](gyn/challenge/pl/004/dumb.py)
 
-
+TODO: Write multicore cracker.
+And my cute, not so dumb solver:
 
 [solver](gyn/challenge/pl/004/004.py)
 
@@ -212,13 +214,49 @@ Dumbest solution ever, but if you have enough time, go on, brute it!:
 Dear agent, your password is:
 
 
-[solution](gyn/challenge/pl/003/solution)
+[solution](gyn/challenge/pl/004/solution)
 
 
     Over and out
 
-My micro shoutout is dedicated to @disconnect3d, I've encountered his solution after doing my... and I feel dumb :P thats awesome, here is a link to his writeup (eng) : [click]("https://disconnect3d.pl/2017/05/29/Gynvael-Coldwind-mission-04-angr-solution/")
+My micro shoutout is dedicated to @disconnect3d, I've encountered his solution after doing my... and I feel dumb :P thats awesome, here is a link to his writeup (eng) : [click]("https://disconnect3d.pl/2017/05/29/Gynvael-Coldwind-mission-04-angr-solution")
 
+
+***
+###### PL: Mission 005
+
+[task](https://youtu.be/PQR5zSS6_Rk?t=7123)
+
+[target](http://gynvael.vexillium.org/ext/m5_tajne.png)
+
+
+Comment: This mission has been leaked during EP42 on OSDev PL Livestream, so we could start cracking it earlier. Let's go! 
+For nonpolish speakers: special agent (probably that encoding genius), finally managed to do something. He made a photo of password to server. Unfortunately, as usual, something went wrong, and we are asked to fix that mess. The picture (available under `target` link) is blank/black. Mission is rated 2/10. 
+
+
+My steps to solution:
+
+1. There are no notes on the server, on which we can find the picture. As usual, it's time for some forensic job. I've started with `file` program, on Windows. The output:
+    m5_tajne.png: PNG image data, 640 x 400, 4-bit colormap, non-interlaced
+2. Ok, so this time we have "valid" (as far as header and other standard's constraints are concerned) PNG file, with resolution `640x400` and 4 bit colormap. But I still felt uninformed. The challenge is rated 2/10, so it cannot be so difficult. Unfortunately playing with contrats, colors and alpha level in gimp wasn't the way to go. 
+3. Before any further job, grab that link: [click](https://tools.ietf.org/html/rfc2083) it might be useful!
+4. Armoured with RFC, I wasn't so sure about the way this challenge should be solved. So after short google query, I've found some realy useful PNG tool, called `pngcheck`. The output of all possible flags is presented in the image below.
+![Ongoing_investigation](gyn/challenge/pl/005/investigation.png)
+6. Well, that's interesting! I'm not fluent in formats, but PLTE which refers to some palette entries as described in `pngcheck` is probably somehting connected to colors. And AFAIK RGB = (0,0,0) is black color, so if all palette entries are set to zero, maybe this is the case... Let's define own colors palletes and insert them into a file. But how to change these values? We could probably do it in HexEditor, like gvim with xxd, but I've chosen python (hah!) and PILLOW library. This time my armour is Python2, because of bytes, bytestrings, encoding etc... 
+7. Short&fast reaserch leads to that post on StackOverflow: [link](https://stackoverflow.com/a/1214765/6849518) that's the way to go! I've modified this code (mostly bytes of colors) and... BINGO! There is our password dear agent! Steganography is an art! 
+
+
+Python solver:
+
+[solver](gyn/challenge/pl/005/005.py)
+
+Password:
+
+[solver](gyn/challenge/pl/005/solution)
+
+Deobfuscated image after using solver:
+
+[solver](gyn/challenge/pl/005/m5_nietajne.png)
 
 ***
 ***
@@ -356,3 +394,5 @@ And the password is:
 [solution](gyn/challenge/en/004/solution)
 
 ***
+
+[![](https://spacevim.org/img/build-with-SpaceVim.svg)](https://spacevim.org)
