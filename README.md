@@ -127,7 +127,7 @@ Linkt to task:
 [click](http://gynvael.vexillium.org/ext/501ec65ba47c1ffe6ab6fd3f3b150c91bf15c37f.txt)
 
 
-Comment: Covert ops agent, has a serious problem with code lock. He managed to use some JTAG or another UARTs to dump firmware. Now we have to deobfuscate it and crack it! 
+Comment: Covert ops agent, has a serious problem with code lock. He managed to use some JTAG or another UARTs to dump firmware. Now we have to deobfuscate and crack it! 
 
 ```cpp
       #include <stdio.h>
@@ -171,24 +171,49 @@ int main(void)
 }
 ```
 
-Whoah, awsome! That looks nice! 
+Whoah, awesome! That looks nice! 
 
 Let's analyze the code.
 
 My solution:
 
 1. In main function, that accepts no argv arguments, program alocates chars' buffer: `char buff[1234];`
-2. Then it waits for input, reading max 1233 chars + `\0` which is C style string terminator.
+2. Then it waits for input, reading up to 1233 chars + `\0` which is C style string terminator.
 3. Later main function calls puts, printing one of two declarated strings "good" and "nope". Output depends on check(buff)*(6-1), this expression depends on what check function returns. So now it's time to analyze the core of this lock's firmware.
 4. Function check accepts one pointer as an argument - it's pointer of char type, so it is the pointer to the `buff` buffer.
 5. Then there is strange for newbies (like me) expr. `for(p = b; *p; p++);` it's a for loop, that starts in the begining of the buff string and stops... when? At the end of the buffer. So expression p-b is another way of saying `length(buff)`. Well I will stick to my version, but it's good to see another ways to present length of the string in C/C++ :)
-6. Then we have if statement. `if(((p-b)^42)!=47)` If it's true our function returns ~0xffffffff number. We are familiar with `^` operator, it's used for xor operation. So if (p-b) xor 42 is not equal to 47. There is a very simple way, to "retrive" p-b, so the length of the string, value. I've used that in mission PL 001. (p-b) = 47 ^ 42. My python interpreter claims that:
+6. Then we have if statement. `if(((p-b)^42)!=47)` If it's true our function returns ~0xffffffff number. We are familiar with `^` operator, it's used for xor operation. So if (p-b) xor 42 is not equal to 47. There is a very simple way, to "retrive" p-b, so the length of the string, value. I've used that in mission PL 001. `(p-b) = 47 ^ 42`. My python interpreter claims that:
 ```
 >>> 42^47
 5
 ```
-If that condition is not met, function returns this strange value. Negation of all F <16> values means just return 0; Then pointer in `puts` func in main() points to "nope". So my awsome deduction skills tell me that password must be 5 chars long. That is bruteforceable! (I love bruteforce, it's very convinient way, and usualy guarantees 100% correct solution. Sometimes it just matter of bilions of years...)
-7. 
+If that condition is not met, function returns this strange value. Negation of all F <hex> values `~0xffffffff` means just return 0. Then pointer in `puts` func in main() points to "nope". So my awesome deduction skills tell me that password must be 5 chars long. That is bruteforceable! (I love bruteforce, it's very convinient way, and usualy guarantees 100% correct solution. Sometimes it just matter of bilions of years...)
+7. Then we've got declaration of variable ch. This variable is initialized with magic value `0x1451723121264133ULL` in decimal it is `1464076909207241011`.
+8. Next instruction is another for loop.
+```cpp
+    for (p = b; *p; p++)
+        ch = ((ch << 9) | (ch >> 55)) ^ *p;
+```
+What it does, for each char of password, it shifts current value of ch (bitwise) nine bits left, ORs it with current ch shifted 55 bits right and XORs it with current char. This is assigned to ch, so in next iteration we've got another value. 
+Finally function `check` returns value of comparision of magic value and ch. So at the end our ch value must be equal `14422328074577807877ULL`, ULL stands for `unsigned long long` if someone is curious. 
+9. 
+
+
+So finally, lets wrap it up and code:
+
+
+[solver](gyn/challenge/pl/003/003.py)
+
+
+Dear agent, your password is:
+
+
+[solution](gyn/challenge/pl/003/solution)
+
+
+    `Over and out`
+
+My micro shoutout is dedicated to @disconnect3d, I've encountered his solution after doing my... and I feel dumb :P thats awesome, here is a link to his writeup (eng) : [click]("https://disconnect3d.pl/2017/05/29/Gynvael-Coldwind-mission-04-angr-solution/")
 
 
 ***
