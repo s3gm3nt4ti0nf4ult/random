@@ -123,7 +123,7 @@ The password is:
 ***
 ###### PL: Mission 004
 
-Linkt to task:
+Link to task:
 
 [click](http://gynvael.vexillium.org/ext/501ec65ba47c1ffe6ab6fd3f3b150c91bf15c37f.txt)
 
@@ -219,11 +219,14 @@ Dear agent, your password is:
 
     Over and out
 
-My micro shoutout is dedicated to @disconnect3d, I've encountered his solution after doing my... and I feel dumb :P thats awesome, here is a link to his writeup (eng) : [click]("https://disconnect3d.pl/2017/05/29/Gynvael-Coldwind-mission-04-angr-solution")
+My micro shoutout is dedicated to @disconnect3d, I've encountered his solution after doing my... and I feel dumb :P thats awesome, here is a link to his writeup (eng) : [click](https://disconnect3d.pl/2017/05/29/Gynvael-Coldwind-mission-04-angr-solution)
 
 
 ***
 ###### PL: Mission 005
+
+
+Link to task:
 
 [task](https://youtu.be/PQR5zSS6_Rk?t=7123)
 
@@ -237,13 +240,23 @@ For nonpolish speakers: special agent (probably that encoding genius), finally m
 My steps to solution:
 
 1. There are no notes on the server, on which we can find the picture. As usual, it's time for some forensic job. I've started with `file` program, on Windows. The output:
-    m5_tajne.png: PNG image data, 640 x 400, 4-bit colormap, non-interlaced
+    `m5_tajne.png: PNG image data, 640 x 400, 4-bit colormap, non-interlaced`
 2. Ok, so this time we have "valid" (as far as header and other standard's constraints are concerned) PNG file, with resolution `640x400` and 4 bit colormap. But I still felt uninformed. The challenge is rated 2/10, so it cannot be so difficult. Unfortunately playing with contrats, colors and alpha level in gimp wasn't the way to go. 
 3. Before any further job, grab that link: [click](https://tools.ietf.org/html/rfc2083) it might be useful!
 4. Armoured with RFC, I wasn't so sure about the way this challenge should be solved. So after short google query, I've found some realy useful PNG tool, called `pngcheck`. The output of all possible flags is presented in the image below.
 ![Ongoing_investigation](gyn/challenge/pl/005/investigation.png)
-6. Well, that's interesting! I'm not fluent in formats, but PLTE which refers to some palette entries as described in `pngcheck` is probably somehting connected to colors. And AFAIK RGB = (0,0,0) is black color, so if all palette entries are set to zero, maybe this is the case... Let's define own colors palletes and insert them into a file. But how to change these values? We could probably do it in HexEditor, like gvim with xxd, but I've chosen python (hah!) and PILLOW library. This time my armour is Python2, because of bytes, bytestrings, encoding etc... 
-7. Short&fast reaserch leads to that post on StackOverflow: [link](https://stackoverflow.com/a/1214765/6849518) that's the way to go! I've modified this code (mostly bytes of colors) and... BINGO! There is our password dear agent! Steganography is an art! 
+6. Well, that's interesting! I'm not fluent in formats, but PLTE which refers to some palette entries as described in `pngcheck` is probably somehting connected to colors. And AFAIK RGB = (0,0,0) is black color, so if all palette entries are set to zero, maybe this is the case... Let's define own colors palletes and insert them into a file. But how to change these values? We could probably do it in HexEditor, like gvim with xxd, but I've chosen python (hah!) and PILLOW library. This time my armour is Python2, because of bytes, bytestrings, encoding etc... Short&fast reaserch leads to that post on StackOverflow: [link](https://stackoverflow.com/a/1214765/6849518)
+7. On page 17 of given RFC, there is full information we need to understand how PLTE works. [link](https://tools.ietf.org/html/rfc2083#page-17). PLTE sections contains `chunks` of 3-byte series (RGB) with values in range (0,255). Where three zeros mean... BLACK, so our assumptions from point previous point are correct... So I've randomly generated colors for all palettes' entries and concatenaded them into one binary string. 
+```python
+ paldata = '\x0f\x0f\x0f' + '\xf0\xf0\xf0' + '\x00\xff\xde' + '\xff\x00\xde' + '\xde\xff\x00' + '\x00\x00\x00' + '\xff\xff\xff' + '\xde\xde\xde' 
+ ```
+ Then, there is only one thing needed. To protect data integrity PNG uses CRC checksum algorithm. It's described [here](https://tools.ietf.org/html/rfc2083#page-15)
+ Fortunately zlib gives us all tools needed to calculate crc32. Writing it is simple:
+ ```python
+                 f.write(struct.pack('>L', crc32(chtype+paldata)&0xffffffff))
+```
+`&` operation slices length of calcaled number to 32 bits, that are required by standard. 
+8. BINGO! There is our password dear agent! Steganography is an art! 
 
 
 Python solver:
