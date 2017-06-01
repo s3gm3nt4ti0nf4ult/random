@@ -200,9 +200,13 @@ Finally function `check` returns value of comparision of magic value and ch. So 
 
 
 So finally, lets wrap it up and code:
+Dumbest solution ever, but if you have enough time, go on, brute it!:
+
+[dummy](gyn/challenge/pl/004/dumb.py)
 
 
-[solver](gyn/challenge/pl/003/003.py)
+
+[solver](gyn/challenge/pl/004/004.py)
 
 
 Dear agent, your password is:
@@ -211,7 +215,7 @@ Dear agent, your password is:
 [solution](gyn/challenge/pl/003/solution)
 
 
-    `Over and out`
+    Over and out
 
 My micro shoutout is dedicated to @disconnect3d, I've encountered his solution after doing my... and I feel dumb :P thats awesome, here is a link to his writeup (eng) : [click]("https://disconnect3d.pl/2017/05/29/Gynvael-Coldwind-mission-04-angr-solution/")
 
