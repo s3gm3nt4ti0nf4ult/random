@@ -23,7 +23,9 @@ ___
 
 This directory contains solutions of GynvaelColdwind's missions from his streams in both english and polish language.
 
-For tasks in polish I will make some comments. `<SPOILER_ALERT>` Solutions are hidden under links`</SPOILER_ALERT>`, so there will be no more spoiler alerts! You enter "solution" link at your own risk!
+For tasks in polish I will make some comments. 
+
+`<SPOILER_ALERT>` Solutions are hidden under links`</SPOILER_ALERT>`, so there will be no more spoiler alerts! You enter "solution" link at your own risk!
 
 ***
 ### PL
@@ -416,7 +418,7 @@ Link to task:
 
 My solution:
 
-1. Given address redirect us to some page. In all my web browsers, there is only this icon available:  This usually means broken image, or unavailable resource. 
+1. Given address redirect us to some page. In all my web browsers, there is only this icon available: ![resource](gyn/challenge/en/005/resource.png) This usually means broken image, or unavailable resource. 
 2. Viewing the source of that webpage gives us interesting message left by agent:
     
     <!-- Note: some browsers like Chrome, Firefox, IE, Safair, Edge, etc
