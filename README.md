@@ -188,7 +188,7 @@ My solution:
 >>> 42^47
 5
 ```
-If that condition is not met, function returns this strange value. Negation of all F <hex> values `~0xffffffff` means just return 0. Then pointer in `puts` func in main() points to "nope". So my awesome deduction skills tell me that password must be 5 chars long. That is bruteforceable! (I love bruteforce, it's very convinient way, and usualy guarantees 100% correct solution. Sometimes it just matter of bilions of years...)
+If that condition is not met, function returns this strange value. Negation of all F <hex> values `~0xffffffff` means just return 0. Then pointer in `puts` func in main() points to "nope". So my awesome deduction skills tell me that password must be 5 chars long. That is bruteforceable! (I love bruteforce, it's very convinient way, and usually guarantees 100% correct solution. Sometimes it just matter of bilions of years...)
 7. Then we've got declaration of variable ch. This variable is initialized with magic value `0x1451723121264133ULL` in decimal it is `1464076909207241011`.
 8. Next instruction is another for loop.
 ```cpp
@@ -265,11 +265,11 @@ Python solver:
 
 Password:
 
-[solver](gyn/challenge/pl/005/solution)
+[solution](gyn/challenge/pl/005/solution)
 
 Deobfuscated image after using solver:
 
-[solver](gyn/challenge/pl/005/m5_nietajne.png)
+[solution_image](gyn/challenge/pl/005/m5_nietajne.png)
 
 ***
 ***
@@ -407,5 +407,23 @@ And the password is:
 [solution](gyn/challenge/en/004/solution)
 
 ***
+###### EN: Mission 005
+
+Link to task:
+
+[click](http://gynvael.vexillium.org/ext/thepicture/)
+
+
+My solution:
+
+1. Given address redirect us to some page. In all my web browsers, there is only this icon available:  This usually means broken image, or unavailable resource. 
+2. Viewing the source of that webpage gives us interesting message left by agent:
+    
+    <!-- Note: some browsers like Chrome, Firefox, IE, Safair, Edge, etc
+         might not support this type of HTTP compression and image format.
+         Actually, I don't think any browser supports it.
+         It's perfect security!
+    -->
+3. 
 
 [![](https://spacevim.org/img/build-with-SpaceVim.svg)](https://spacevim.org)
