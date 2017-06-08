@@ -12,6 +12,7 @@ Table of Contents:
                   * [PL: Mission 002](#pl-mission-002)
                   * [PL: Mission 003](#pl-mission-003)
                   * [PL: Mission 004](#pl-mission-004)
+                  * [PL: Mission 005](#pl-mission-005)
          * [EN](#en)
                   * [EN: Mission 001](#en-mission-001)
                   * [EN: Mission 002](#en-mission-002)
@@ -22,7 +23,9 @@ ___
 
 This directory contains solutions of GynvaelColdwind's missions from his streams in both english and polish language.
 
-For tasks in polish I will make some comments. `<SPOILER_ALERT>` Solutions are hidden under links`</SPOILER_ALERT>`, so there will be no more spoiler alerts! You enter "solution" link at your own risk!
+For tasks in polish I will make some comments. 
+
+`<SPOILER_ALERT>` Solutions are hidden under links`</SPOILER_ALERT>`, so there will be no more spoiler alerts! You enter "solution" link at your own risk!
 
 ***
 ### PL
@@ -122,12 +125,12 @@ The password is:
 ***
 ###### PL: Mission 004
 
-Linkt to task:
+Link to task:
 
 [click](http://gynvael.vexillium.org/ext/501ec65ba47c1ffe6ab6fd3f3b150c91bf15c37f.txt)
 
 
-Comment: Covert ops agent, has a serious problem with code lock. He managed to use some JTAG or another UARTs to dump firmware. Now we have to deobfuscate it and crack it! 
+Comment: Covert ops agent, has a serious problem with code lock. He managed to use some JTAG or another UARTs to dump firmware. Now we have to deobfuscate and crack it! 
 
 ```cpp
       #include <stdio.h>
@@ -171,25 +174,104 @@ int main(void)
 }
 ```
 
-Whoah, awsome! That looks nice! 
+Whoah, awesome! That looks nice! 
 
 Let's analyze the code.
 
 My solution:
 
 1. In main function, that accepts no argv arguments, program alocates chars' buffer: `char buff[1234];`
-2. Then it waits for input, reading max 1233 chars + `\0` which is C style string terminator.
+2. Then it waits for input, reading up to 1233 chars + `\0` which is C style string terminator.
 3. Later main function calls puts, printing one of two declarated strings "good" and "nope". Output depends on check(buff)*(6-1), this expression depends on what check function returns. So now it's time to analyze the core of this lock's firmware.
 4. Function check accepts one pointer as an argument - it's pointer of char type, so it is the pointer to the `buff` buffer.
 5. Then there is strange for newbies (like me) expr. `for(p = b; *p; p++);` it's a for loop, that starts in the begining of the buff string and stops... when? At the end of the buffer. So expression p-b is another way of saying `length(buff)`. Well I will stick to my version, but it's good to see another ways to present length of the string in C/C++ :)
-6. Then we have if statement. `if(((p-b)^42)!=47)` If it's true our function returns ~0xffffffff number. We are familiar with `^` operator, it's used for xor operation. So if (p-b) xor 42 is not equal to 47. There is a very simple way, to "retrive" p-b, so the length of the string, value. I've used that in mission PL 001. (p-b) = 47 ^ 42. My python interpreter claims that:
+6. Then we have if statement. `if(((p-b)^42)!=47)` If it's true our function returns ~0xffffffff number. We are familiar with `^` operator, it's used for xor operation. So if (p-b) xor 42 is not equal to 47. There is a very simple way, to "retrive" p-b, so the length of the string, value. I've used that in mission PL 001. `(p-b) = 47 ^ 42`. My python interpreter claims that:
 ```
 >>> 42^47
 5
 ```
-If that condition is not met, function returns this strange value. Negation of all F <16> values means just return 0; Then pointer in `puts` func in main() points to "nope". So my awsome deduction skills tell me that password must be 5 chars long. That is bruteforceable! (I love bruteforce, it's very convinient way, and usualy guarantees 100% correct solution. Sometimes it just matter of bilions of years...)
-7. 
+If that condition is not met, function returns this strange value. Negation of all F <hex> values `~0xffffffff` means just return 0. Then pointer in `puts` func in main() points to "nope". So my awesome deduction skills tell me that password must be 5 chars long. That is bruteforceable! (I love bruteforce, it's very convinient way, and usually guarantees 100% correct solution. Sometimes it just matter of bilions of years...)
+7. Then we've got declaration of variable ch. This variable is initialized with magic value `0x1451723121264133ULL` in decimal it is `1464076909207241011`.
+8. Next instruction is another for loop.
+```cpp
+    for (p = b; *p; p++)
+        ch = ((ch << 9) | (ch >> 55)) ^ *p;
+```
+What it does, for each char of password, it shifts current value of ch (bitwise) nine bits left, ORs it with current ch shifted 55 bits right (its called bit roll) and XORs it with current char. This is assigned to ch, so in next iteration we've got another value. 
+Finally function `check` returns value of comparision of magic value and ch. So at the end our ch value must be equal `14422328074577807877ULL`, ULL stands for `unsigned long long` if someone is curious. 
+9. So if it's bitwise roll, nothing is lost, so I can just roll back to the original value and xor it with the score, that gives us the original value of *p, so the value of particular char - letter of the password! HACK YEAH. 
 
+
+So finally, lets wrap it up and code:
+Dumbest solution ever, but if you have enough time, go on, brute it!:
+
+[dummy](gyn/challenge/pl/004/dumb.py)
+
+TODO: Write multicore cracker.
+And my cute, not so dumb solver:
+
+[solver](gyn/challenge/pl/004/004.py)
+
+
+Dear agent, your password is:
+
+
+[solution](gyn/challenge/pl/004/solution)
+
+
+    Over and out
+
+My micro shoutout is dedicated to @disconnect3d, I've encountered his solution after doing my... and I feel dumb :P thats awesome, here is a link to his writeup (eng) : [click](https://disconnect3d.pl/2017/05/29/Gynvael-Coldwind-mission-04-angr-solution)
+
+
+***
+###### PL: Mission 005
+
+
+Link to task:
+
+[task](https://youtu.be/PQR5zSS6_Rk?t=7123)
+
+[target](http://gynvael.vexillium.org/ext/m5_tajne.png)
+
+
+Comment: This mission has been leaked during EP42 on OSDev PL Livestream, so we could start cracking it earlier. Let's go! 
+For nonpolish speakers: special agent (probably that encoding genius), finally managed to do something. He made a photo of password to server. Unfortunately, as usual, something went wrong, and we are asked to fix that mess. The picture (available under `target` link) is blank/black. Mission is rated 2/10. 
+
+
+My steps to solution:
+
+1. There are no notes on the server, on which we can find the picture. As usual, it's time for some forensic job. I've started with `file` program, on Windows. The output:
+    `m5_tajne.png: PNG image data, 640 x 400, 4-bit colormap, non-interlaced`
+2. Ok, so this time we have "valid" (as far as header and other standard's constraints are concerned) PNG file, with resolution `640x400` and 4 bit colormap. But I still felt uninformed. The challenge is rated 2/10, so it cannot be so difficult. Unfortunately playing with contrats, colors and alpha level in gimp wasn't the way to go. 
+3. Before any further job, grab that link: [click](https://tools.ietf.org/html/rfc2083) it might be useful!
+4. Armoured with RFC, I wasn't so sure about the way this challenge should be solved. So after short google query, I've found some realy useful PNG tool, called `pngcheck`. The output of all possible flags is presented in the image below.
+![Ongoing_investigation](gyn/challenge/pl/005/investigation.png)
+6. Well, that's interesting! I'm not fluent in formats, but PLTE which refers to some palette entries as described in `pngcheck` is probably somehting connected to colors. And AFAIK RGB = (0,0,0) is black color, so if all palette entries are set to zero, maybe this is the case... Let's define own colors palletes and insert them into a file. But how to change these values? We could probably do it in HexEditor, like gvim with xxd, but I've chosen python (hah!) and binary libraries like struct. This time my armour is Python2, because of bytes, bytestrings, encoding etc... Short&fast reaserch leads to that post on StackOverflow: [link](https://stackoverflow.com/a/1214765/6849518). There is also posibility to use PILLOW lib. 
+7. On page 17 of given RFC, there is full information we need to understand how PLTE works. [link](https://tools.ietf.org/html/rfc2083#page-17). PLTE sections contains `chunks` of 3-byte series (RGB) with values in range (0,255). Where three zeros mean... BLACK, so our assumptions from point previous point are correct... So I've randomly generated colors for all palettes' entries and concatenaded them into one binary string. 
+```python
+ paldata = '\x0f\x0f\x0f' + '\xf0\xf0\xf0' + '\x00\xff\xde' + '\xff\x00\xde' + '\xde\xff\x00' + '\x00\x00\x00' + '\xff\xff\xff' + '\xde\xde\xde' 
+ ```
+ Then, there is only one thing needed. To protect data integrity PNG uses CRC checksum algorithm. It's described [here](https://tools.ietf.org/html/rfc2083#page-15)
+ Fortunately zlib gives us all tools needed to calculate crc32. Writing it is simple:
+ ```python
+                 f.write(struct.pack('>L', crc32(chtype+paldata)&0xffffffff))
+```
+`&` operation slices length of calcaled number to 32 bits, that are required by standard. 
+8. BINGO! There is our password dear agent! Steganography is an art! 
+
+
+Python solver:
+
+[solver](gyn/challenge/pl/005/005.py)
+
+Password:
+
+[solution](gyn/challenge/pl/005/solution)
+
+Deobfuscated image after using solver:
+
+[solution_image](gyn/challenge/pl/005/m5_nietajne.png)
 
 ***
 ***
@@ -327,3 +409,23 @@ And the password is:
 [solution](gyn/challenge/en/004/solution)
 
 ***
+###### EN: Mission 005
+
+Link to task:
+
+[click](http://gynvael.vexillium.org/ext/thepicture/)
+
+
+My solution:
+
+1. Given address redirect us to some page. In all my web browsers, there is only this icon available: ![resource](gyn/challenge/en/005/resource.png) This usually means broken image, or unavailable resource. 
+2. Viewing the source of that webpage gives us interesting message left by agent:
+    
+    <!-- Note: some browsers like Chrome, Firefox, IE, Safair, Edge, etc
+         might not support this type of HTTP compression and image format.
+         Actually, I don't think any browser supports it.
+         It's perfect security!
+    -->
+3. 
+
+[![](https://spacevim.org/img/build-with-SpaceVim.svg)](https://spacevim.org)
