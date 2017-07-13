@@ -1,6 +1,7 @@
 # Random stuff repo.
 
 Note! some things might be missing or not so complete, I will fix it ASAP.
+I am little back with eng solutions but I will fix it!
 
 Random stuff, short scripts, ctf snippets.
 
@@ -274,6 +275,60 @@ Deobfuscated image after using solver:
 [solution_image](gyn/challenge/pl/005/m5_nietajne.png)
 
 ***
+###### PL: MISSION 006
+
+[task](http://gynvael.vexillium.org/ext/250fb09e4757f43a8aaaa4b01d293c68d5109cb5_misja006.txt)
+
+TL;DR; in english:
+
+We are given another encoded piece of information. Source says that it's from 60's and text is in polish. 
+
+```c5 c2 c3 c4 c9 c3 40 82 a8 93 82 a8 40 86 81 91 95 a8 40 87 84
+  a8 82 a8 40 82 a8 93 40 93 96 87 89 83 a9 95 a8 4b 40 c1 93 85
+  40 95 89 85 40 91 85 a2 a3 4b
+```
+
+My solution:
+1. As we see, there are some higher bits enabled. My first approach was to search for some really old encodings used in Odras computers in Poland in 1960's but all my guesses were false.
+2. After searching "encoding guessing" I've found really convinient python library called cchardet or chardet. I've tried both. If you know any proper way to get this encoding right with this libs, please give me a hint. The closest I got was:
+```{'encoding': 'ISO-8859-7', 'confidence': 0.9900000095367432}```
+But it's not the correct solution, because decoding this message gives only another hex string.
+3. As I remember, python has really good support of string decoding, so I've decided to bruteforce and use all possible encodings in this language. 
+4. Boom! Correct string. In solution there are two lines. First is "the original one", second is translation for non-polish speakers.
+
+Python solver:
+
+[solver](gyn/challenge/pl/006/006.py)
+
+Password:
+
+[solution](gyn/challenge/pl/006/solution)
+
+***
+###### PL: MISSION 007
+
+
+Link to task:
+
+[click](http://gynvael.vexillium.org/ext/a77eb7ca6d30d8e1cfb3572b0dbc2d364ad9c7fb_misja007.txt)
+
+Comment:
+
+Another encrypted message! I think that mr. "I should never become an agent" strikes again! 
+Task is rated 1/10, so check your seatbelts, because we gonna do this quick! (never, ever understiminate your enemy! Even if rated 1/10)
+Text tells us, that encryption was performed with ROTn algorithm but with "changing key". 
+
+My solution:
+1. Think twice, write once. There is no need to write tons of code. Be reasonable. My first guess was to try decoding with increasing/decreasing `n` value. 
+2. Done! Thanks!
+
+Python solver:
+
+[solver](gyn/challenge/pl/007/007.py)
+
+Solution:
+
+[solution](gyn/challenge/pl/007/007.py)***
 ***
 ### EN
 ###### EN: Mission 001
