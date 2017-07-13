@@ -14,6 +14,7 @@ Table of Contents:
                   * [PL: Mission 003](#pl-mission-003)
                   * [PL: Mission 004](#pl-mission-004)
                   * [PL: Mission 005](#pl-mission-005)
+                  * [PL: Mission 007](#pl-mission-007)
          * [EN](#en)
                   * [EN: Mission 001](#en-mission-001)
                   * [EN: Mission 002](#en-mission-002)
@@ -275,7 +276,7 @@ Deobfuscated image after using solver:
 [solution_image](gyn/challenge/pl/005/m5_nietajne.png)
 
 ***
-###### PL: MISSION 006
+###### PL: Mission 006
 
 [task](http://gynvael.vexillium.org/ext/250fb09e4757f43a8aaaa4b01d293c68d5109cb5_misja006.txt)
 
@@ -305,7 +306,7 @@ Password:
 [solution](gyn/challenge/pl/006/solution)
 
 ***
-###### PL: MISSION 007
+###### PL: Mission 007
 
 
 Link to task:
@@ -324,11 +325,13 @@ My solution:
 
 Python solver:
 
-[solver](gyn/challenge/pl/007/007.py)
+[solver](gyn/challenge/pl/007/solver.py)
 
 Solution:
 
-[solution](gyn/challenge/pl/007/007.py)***
+[solution](gyn/challenge/pl/007/solution)
+
+***
 ***
 ### EN
 ###### EN: Mission 001
