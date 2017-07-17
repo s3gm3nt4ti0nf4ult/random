@@ -29,7 +29,7 @@ To compute co-ordinates of point that was hit by laser and the measurement was c
 	```python
 	x = math.floor(math.sin(math.degrees(angle)) * distance)
     	y = math.floor(math.cos(math.degrees(angle)) * distance)
-```
+	```
 
 5. The reason why I'm making `floor()` rounding is that co-ordinates need to be integear. Ofcourse if you have enough memory and horsepower, you can multiply distances and co-ordinates to do all computings on inteager values. `int()` beahves diffrently when it comes to negative numbers. 
 So for every point that could be measured by laser, value in matrix was changed from 0 to 255 (from black to white color, as I wanted to obtain wb map).
