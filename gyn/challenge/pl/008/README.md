@@ -18,16 +18,18 @@ My solution:
 2. Firstly I've created function python```download()``` to control the flow od downloading data and if there is any need, to redo downloading (in case of something crashes). There is also a function called python```parse()``` which is designed to parse input file and get four files obtained after moving drone to one of the directions (last four lines). I started downloading... After about 20 minutes, my patience was over. I knew, that the area was pretty big, but c'mon! Tons of small little datafiles, creating connections for each of them, downloading every single file... So I decided to do like in this joke about programmer, who has one problem and tries to solve it on threads, I've also started to have more than one problem :D. After parallelization of downloading (Python threading is really cool!), it went much faster. After two and a half of hour, I had all 187812 files downloaded and stored in 'dump' folder. 
 3. From this point there ale few ways to go. I've decided to use the simplest and the fastes solution - iterate over all files one by one from that dataset, and plot each scan one by one. To do this I've used: 
 
-python```import numpy as np
-	
-	matrix = np.zeros((1500,1500))```
+```python
+	import numpy as np
+	matrix = np.zeros((1500,1500))
+```
 
 4. Numpy is realy handy when it comes to matrixes and majority of plotting/image editing libraries supports it. 
 To compute co-ordinates of point that was hit by laser and the measurement was conducted there are two simple trigonometrics formulas used:
 
-	python```    x = math.floor(math.sin(math.degrees(angle)) * distance)
-	
-    	y = math.floor(math.cos(math.degrees(angle)) * distance)```
+	```python
+	x = math.floor(math.sin(math.degrees(angle)) * distance)
+    	y = math.floor(math.cos(math.degrees(angle)) * distance)
+```
 
 5. The reason why I'm making `floor()` rounding is that co-ordinates need to be integear. Ofcourse if you have enough memory and horsepower, you can multiply distances and co-ordinates to do all computings on inteager values. `int()` beahves diffrently when it comes to negative numbers. 
 So for every point that could be measured by laser, value in matrix was changed from 0 to 255 (from black to white color, as I wanted to obtain wb map).
