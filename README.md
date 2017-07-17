@@ -15,6 +15,7 @@ Table of Contents:
                   * [PL: Mission 004](#pl-mission-004)
                   * [PL: Mission 005](#pl-mission-005)
                   * [PL: Mission 007](#pl-mission-007)
+                  * [PL: Mission 008](random/gyn/challenge/pl/008/)
          * [EN](#en)
                   * [EN: Mission 001](#en-mission-001)
                   * [EN: Mission 002](#en-mission-002)
