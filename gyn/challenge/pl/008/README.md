@@ -46,10 +46,16 @@ Nither second
 
 ![Third... better](graphic/third.png)
 
-I was trying to manipulate `mult` value, which was a factor used to remove some floating point errors after rounding it to int. That gave me some point of angle:
+I was trying to manipulate `mult` value, which was a factor used to remove some floating point errors after rounding it to int. That gave me some point of angle, and uhm yeah in line:
+
+```python
+    matrix[d_y-y][d_x+x] = 255
+```
+I had to change the "direction of adding", because I missunderstood where the north is. 
 
 ![fourth](graphic/fourth.png)
 
+Better!
 Let's see what we have here:
 
 ![solution](graphic/solution.png)
