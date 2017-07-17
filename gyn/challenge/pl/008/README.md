@@ -43,6 +43,7 @@ Nither second
 ![second](graphic/second.png)
 
 ![Third... better](graphic/third.png)
+
 I was trying to manipulate `mult` value, which was a factor used to remove some floating point errors after rounding it to int. That gave me some point of angle:
 
 ![fourth](graphic/fourth.png)
