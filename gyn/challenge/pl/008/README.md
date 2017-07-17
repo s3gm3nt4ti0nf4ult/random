@@ -35,22 +35,28 @@ Technically it is all. Run script using command `python main.py` and wait for yo
 //progressbar loading gif
 
 6. My first attempt wasn't so sucessful:
+
 ![first](graphic/first.png)
+
 Nither second
+
 ![second](graphic/second.png)
-[...]
+
 ![Third... better](graphic/third.png)
 I was trying to manipulate `mult` value, which was a factor used to remove some floating point errors after rounding it to int. That gave me some point of angle:
+
 ![fourth](graphic/fourth.png)
 
 Let's see what we have here:
+
 ![solution](graphic/solution.png)
 
 Yeah, that's not the best quality ever seen but... Hack yeah it works! IT REALLY WORKS!!! 
 
 Solver in python:
+
 [solver](main.py)
 
 And the SECRET PASSWORD IS:
-[password](solution)
 
+[password](solution)
