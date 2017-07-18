@@ -10,7 +10,7 @@ This is the thoughest mission so far. Drone crew have done some scanning using L
 
 there is an "api" for that drone. As given on that url:
 
-![API](/graphic/api.png)
+![API](graphic/api.png)
 
 There is a file. Filename is some kind of a hash (md5 probably). This is a result of scanning terrain using LIDAR. In the first line, there is const preamble, that says what version of firmware (my guess) was used. Second line contains co-ordinates of drone during current scan (that is described in that file). During scan drone doesn't move. I next 36 lines, we've got scans of the terrain ahead of the drone. When measurement is done, the drone rotates 10 degrees and scans again. In last four lines, there are files that contains scans after moving to particular direction enum('north','east', 'south','west'). 
 
