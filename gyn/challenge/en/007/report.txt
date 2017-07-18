@@ -1,0 +1,3 @@
+The secret password is:
+  My name is Bond, James Bond.
+Seriously, you could have guessed this based on the mission ID.
