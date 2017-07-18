@@ -22,8 +22,8 @@ Table of Contents:
                   * [EN: Mission 003](#en-mission-003)
                   * [EN: Mission 004](#en-mission-004)
                   * [EN: Mission 005] TBD
-                  * [EN: Mission 006](gyn/en/006)
-                  * [EN: Mission 007](gyn/en/007)
+                  * [EN: Mission 006](gyn/challenge/en/006)
+                  * [EN: Mission 007](gyn/challenge/en/007)
                   * [EN: Mission 008] TBD
 ___
 ## Gyn
@@ -297,7 +297,8 @@ We are given another encoded piece of information. Source says that it's from 60
 My solution:
 1. As we see, there are some higher bits enabled. My first approach was to search for some really old encodings used in Odras computers in Poland in 1960's but all my guesses were false.
 2. After searching "encoding guessing" I've found really convinient python library called cchardet or chardet. I've tried both. If you know any proper way to get this encoding right with this libs, please give me a hint. The closest I got was:
-```{'encoding': 'ISO-8859-7', 'confidence': 0.9900000095367432}```
+``` {'encoding': 'ISO-8859-7', 'confidence': 0.9900000095367432} ```
+
 But it's not the correct solution, because decoding this message gives only another hex string.
 3. As I remember, python has really good support of string decoding, so I've decided to bruteforce and use all possible encodings in this language.
 4. Boom! Correct string. In solution there are two lines. First is "the original one", second is translation for non-polish speakers.
@@ -484,11 +485,13 @@ My solution:
 1. Given address redirect us to some page. In all my web browsers, there is only this icon available: ![resource](gyn/challenge/en/005/resource.png) This usually means broken image, or unavailable resource.
 2. Viewing the source of that webpage gives us interesting message left by agent:
 
+    ```
     <!-- Note: some browsers like Chrome, Firefox, IE, Safair, Edge, etc
          might not support this type of HTTP compression and image format.
          Actually, I don't think any browser supports it.
          It's perfect security!
     -->
-3.
+    ```
+3. TBD
 
 [![](https://spacevim.org/img/build-with-SpaceVim.svg)](https://spacevim.org)
