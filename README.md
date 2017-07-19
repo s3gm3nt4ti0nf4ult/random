@@ -24,7 +24,7 @@ Table of Contents:
                   * [EN: Mission 005] TBD
                   * [EN: Mission 006](gyn/challenge/en/006)
                   * [EN: Mission 007](gyn/challenge/en/007)
-                  * [EN: Mission 008] TBD
+                  * [EN: Mission 008](gyn/challenge/en/008)
 ___
 ## Gyn
 
@@ -297,7 +297,9 @@ We are given another encoded piece of information. Source says that it's from 60
 My solution:
 1. As we see, there are some higher bits enabled. My first approach was to search for some really old encodings used in Odras computers in Poland in 1960's but all my guesses were false.
 2. After searching "encoding guessing" I've found really convinient python library called cchardet or chardet. I've tried both. If you know any proper way to get this encoding right with this libs, please give me a hint. The closest I got was:
-``` {'encoding': 'ISO-8859-7', 'confidence': 0.9900000095367432} ```
+```
+{'encoding': 'ISO-8859-7', 'confidence': 0.9900000095367432}
+ ```
 
 But it's not the correct solution, because decoding this message gives only another hex string.
 3. As I remember, python has really good support of string decoding, so I've decided to bruteforce and use all possible encodings in this language.
