@@ -1,4 +1,4 @@
-### MISSION EN: 008
+# MISSION EN: 008
 
 Link to the task:
 
@@ -36,9 +36,12 @@ P.S. I'll show/explain the solution on the stream next week.
 P.S.2. It's just two bytes. But there is a plot twist. Expect the unexpected.
 ```
 
-My comment:
+### My comment:
 
 So this time we are given whole message in one single number. This single number was then multipiled by some unknown value and then sent to us. So to decrypt that we have to find possible `divider` and then try to convert this huge number to text.
+
+
+### Solution:
 
 1. Python is a very handy tool when it comes to CTF task, maths, networking and stuff like that. So it's obvious that I will use it here. First minor task to do, when it comes to this challenge is to determine which value was used by agent. Simple for loop:
 ```python
@@ -66,4 +69,5 @@ And the value that was ussed by agent to "encrypt" data is: `31336`
 
 
 [1] [Glossary](https://docs.python.org/3/glossary.html#term-eafp) `It's easier to ask forgiveness than it is to get permission.`
+
 [2] [click](https://forums.alliedmods.net/archive/index.php/t-90735.html)
