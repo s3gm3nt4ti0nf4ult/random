@@ -62,6 +62,8 @@ Let's see what we have here:
 
 ![solution](graphic/solution.png)
 
+Little fail...
+
 Yeah, that's not the best quality ever seen but... Hack yeah it works! IT REALLY WORKS!!! 
 
 Solver in python:
