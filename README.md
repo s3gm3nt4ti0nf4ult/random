@@ -459,7 +459,7 @@ My solution:
 `UnicodeDecodeError: 'utf8' codec can't decode bytes in position 0-1: invalid continuation byte`. Good job agent! Now you're talking to yourself only...
 2. My first idea, before reading anything was to find some decent UTF-8 decoder, this site seems to be useful:
 [click](https://software.hixie.ch/utilities/cgi/unicode-decoder/utf8-decoder), if you paste our text and select input type "hexadecimal", you will be home. But I won't be myself without trying own implementation. So lets assume, we have to "crack it"!
-3. Firstly, I've tried to use my intuition. Some time ago, I've read about UTF-8 encoding itself. There is a possibility to present the same character using different codes. This was (or still is, but only in poorly developed code), a security bug, that allows for example to use another code for `/` character. Why it is so dangerous? Well, if for example webapp doesn't escape all possible version of slash, something called `path traversal` can occour and the attacer can "jump out of www directory" and read other files, for example some *.conf ones. I highly encourage you to read this link: [click](https://www.owasp.org/index.php/PathTraversal)
+3. Firstly, I've tried to use my intuition. Some time ago, I've read about UTF-8 encoding itself. There is a possibility to present the same character using different codes. This was (or still is, but only in poorly developed code), a security bug, that allows for example to use another code for `/` character. Why it is so dangerous? Well, if for example webapp doesn't escape all possible version of slash, something called `path traversal` can occour and the attacer can "jump out of www directory" and read other files, for example some *.conf ones. I highly encourage you to read this link:* [click](https://www.owasp.org/index.php/PathTraversal)
 
 
 
@@ -475,25 +475,5 @@ And the password is:
 [solution](gyn/challenge/en/004/solution)
 
 ***
-###### EN: Mission 005
-
-Link to task:
-
-[click](http://gynvael.vexillium.org/ext/thepicture/)
-
-
-My solution:
-
-1. Given address redirect us to some page. In all my web browsers, there is only this icon available: ![resource](gyn/challenge/en/005/resource.png) This usually means broken image, or unavailable resource.
-2. Viewing the source of that webpage gives us interesting message left by agent:
-
-    ```
-    <!-- Note: some browsers like Chrome, Firefox, IE, Safair, Edge, etc
-         might not support this type of HTTP compression and image format.
-         Actually, I don't think any browser supports it.
-         It's perfect security!
-    -->
-    ```
-3. TBD
 
 [![](https://spacevim.org/img/build-with-SpaceVim.svg)](https://spacevim.org)
